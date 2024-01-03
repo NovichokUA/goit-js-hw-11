@@ -24,6 +24,7 @@
 }
 
 body {
+  background-attachment: scroll;
   background-color: #ecdfa4;
   height: 100vh;
 }

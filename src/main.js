@@ -25,6 +25,7 @@ function onSearche(event) {
   const searchParams = new URLSearchParams({
     key: MY_KEY,
     q: name,
+    per_page: '40',
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: true,
