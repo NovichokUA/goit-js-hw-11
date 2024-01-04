@@ -10,22 +10,21 @@ const loader = document.querySelector('.loader');
 const MY_KEY = '41590527-3cc425bd48b0e10304cc9b3d1';
 const BASE_URL = 'https://pixabay.com/api/';
 
-form.addEventListener('submit', onSearche);
+form.addEventListener('submit', onSearch);
 loader.style.display = 'none';
 
-function onSearche(event) {
+function onSearch(event) {
   event.preventDefault();
 
   let name = input.value;
 
   gallery.innerHTML = '';
-  input.value = '';
+  // input.value = '';
   loader.style.display = 'block';
 
   const searchParams = new URLSearchParams({
     key: MY_KEY,
     q: name,
-    per_page: '40',
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: true,
@@ -63,7 +62,8 @@ function onSearche(event) {
         docClose: true,
       });
       refreshPage.refresh();
-    });
+    })
+    .catch(error => alert(error));
 }
 
 function renderPhoto(photos) {
