@@ -19,8 +19,23 @@ function onSearch(event) {
   let name = input.value;
 
   gallery.innerHTML = '';
-  // input.value = '';
+
   loader.style.display = 'block';
+
+  if (name === '') {
+    loader.style.display = 'none';
+
+    iziToast.error({
+      title: 'Error',
+      timeout: '2000',
+      message:
+        'Sorry, there are no images matching your search query. Please try again!',
+      messageColor: '#FAFAFB',
+      backgroundColor: '#EF4040',
+      position: 'topRight',
+    });
+    return;
+  }
 
   const searchParams = new URLSearchParams({
     key: MY_KEY,
@@ -40,8 +55,11 @@ function onSearch(event) {
       return response.json();
     })
     .then(photos => {
-      if (photos.hits.length === 0 || name === '') {
+      if (photos.hits.length === 0) {
+        loader.style.display = 'none';
+
         iziToast.error({
+          title: 'Error',
           timeout: '2000',
           message:
             'Sorry, there are no images matching your search query. Please try again!',
@@ -63,7 +81,16 @@ function onSearch(event) {
       });
       refreshPage.refresh();
     })
-    .catch(error => alert(error));
+    .catch(error =>
+      iziToast.error({
+        title: 'Error',
+        timeout: '2000',
+        message: error,
+        messageColor: '#FAFAFB',
+        backgroundColor: '#EF4040',
+        position: 'topRight',
+      })
+    );
 }
 
 function renderPhoto(photos) {
