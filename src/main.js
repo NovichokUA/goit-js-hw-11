@@ -11,7 +11,7 @@ const MY_KEY = '41590527-3cc425bd48b0e10304cc9b3d1';
 const BASE_URL = 'https://pixabay.com/api/';
 
 form.addEventListener('submit', onSearch);
-loader.style.display = 'none';
+closeLoader();
 
 function onSearch(event) {
   event.preventDefault();
@@ -20,10 +20,10 @@ function onSearch(event) {
 
   gallery.innerHTML = '';
 
-  loader.style.display = 'block';
+  showLoader();
 
   if (name === '') {
-    loader.style.display = 'none';
+    closeLoader();
 
     iziToast.error({
       title: 'Error',
@@ -56,7 +56,7 @@ function onSearch(event) {
     })
     .then(photos => {
       if (photos.hits.length === 0) {
-        loader.style.display = 'none';
+        closeLoader();
 
         iziToast.error({
           title: 'Error',
@@ -130,4 +130,11 @@ function renderPhoto(photos) {
        </li>`,
     ''
   );
+}
+
+function showLoader() {
+  loader.style.display = 'block';
+}
+function closeLoader() {
+  loader.style.display = 'none';
 }
